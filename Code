@@ -1,0 +1,67 @@
+
+
+int led = D2;
+int led2 = D5;
+
+
+void myHandler(const char *event, const char *data); // forward declaration
+
+// We start with the setup function.
+
+void setup() {
+
+	pinMode(led,OUTPUT); 
+	pinMode(led2,OUTPUT); 
+	
+	// Here we are going to subscribe to your buddy's event using Particle.subscribe
+	Particle.subscribe("Deakin_RIOT_SIT210_Photon_Buddy", myHandler);
+
+
+}
+
+
+void loop() {
+
+}
+
+
+// Now for the myHandler function, which is called when the cloud tells us that our buddy's event is published.
+void myHandler(const char *event, const char *data)
+{
+
+
+	if (strcmp(data,"wave")==0) {
+		// when "wave" signal blue LED
+		digitalWrite(led,HIGH);
+		delay(2000);
+		digitalWrite(led,LOW);
+		delay(1000);
+		digitalWrite(led,HIGH);
+		delay(2000);
+		digitalWrite(led,LOW);
+		delay(1000);
+		digitalWrite(led,HIGH);
+		delay(2000);
+		digitalWrite(led,LOW);
+		delay(1000);
+	}
+	else if (strcmp(data,"pat")==0) {
+		// when "pat" signal red LED
+		digitalWrite(led2,HIGH);
+		delay(2000);
+		digitalWrite(led2,LOW);
+		delay(1000);
+		digitalWrite(led2,HIGH);
+		delay(2000);
+		digitalWrite(led2,LOW);
+		delay(1000);
+		digitalWrite(led2,HIGH);
+		delay(2000);
+		digitalWrite(led2,LOW);
+		delay(1000);
+	}
+	else {
+		// if the data is something else, don't do anything.
+		// Really the data shouldn't be anything but those two listed above.
+	}
+}
